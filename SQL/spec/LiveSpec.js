@@ -51,7 +51,7 @@ describe("Persistent Node Chat Server", function() {
                 function(err, results) {
                   // Should have one result:
                   expect(results.length).to.equal(1);
-                  expect(results[0].text).to.equal("In mercy's name, three days is all I need.");
+                  expect(results[0].message).to.equal("In mercy's name, three days is all I need.");
                   /* TODO: You will need to change these tests if the
                    * column names in your schema are different from
                    * mine! */
@@ -77,7 +77,7 @@ describe("Persistent Node Chat Server", function() {
         request("http://127.0.0.1:3000/classes/messages",
           function(error, response, body) {
             var messageLog = JSON.parse(body);
-            expect(messageLog[0].text).to.equal("Men like you can never change!");
+            expect(messageLog[0].message).to.equal("Men like you can never change!");
             expect(messageLog[0].roomname).to.equal("main");
             done();
           });
