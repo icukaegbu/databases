@@ -60,3 +60,93 @@ CREATE TABLE Followers(
 
 
 
+
+
+
+/*PUBLIC LIBRARY DATABASE*/
+CREATE DATABASE Library;
+
+USE Library;
+
+CREATE TABLE Books(
+	id int not null auto_increment,
+	title varchar(255) not null,
+	author varchar(150) not null,
+	pubdate date not null,
+	pub_company varchar(255),
+	edition int,
+	isbn varchar(50) not null,
+	number_of_pages int(4),
+	category_id int not null,
+
+	PRIMARY KEY (id),
+	FOREIGN KEY (category_id) REFERENCES BookCategory(id)
+);
+
+CREATE TABLE ArchivedBooks(
+	id int not null auto_increment,
+	book_id int not null,
+
+	PRIMARY KEY (id),
+	FOREIGN KEY (book_id) REFERENCES Book(id)
+);
+
+CREATE TABLE BookCategory(
+	id int not null auto_increment,
+	category varchar(50) not null,
+
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE Members(
+	id int not null auto_increment,
+	fullname varchar(70) not null,
+	address varchar(150),
+	email varchar(100) not null,
+	phone varchar(20) not null,
+	gender enum('MALE', 'FEMALE') not null,
+	registration_date date not null,
+	registration_number varchar(30) not null
+
+	PRIMARY KEY (id),
+	UNIQUE(email, registration_number)
+);
+
+CREATE TABLE LendingRecords
+	id int not null auto_increment,
+	member_id int not null,
+	date_borrowd date not null,
+	date_returned date,
+	return_status enum('RETURNED', 'PENDING'),
+
+	PRIMARY KEY (id),
+	FOREIGN KEY(member_id) REFERENCES Members(id)
+);
+
+
+CREATE TABLE Employees(
+	id int not null auto_increment,
+	fullname varchar(70) not null,
+	address varchar(150),
+	email varchar(100) not null,
+	phone varchar(20) not null,
+	gender enum('MALE', 'FEMALE') not null,
+	date_employed date not null,
+	employee_number varchar(30) not null,
+	job_id int not null,
+
+	PRIMARY KEY (id),
+	FOREIGN KEY(job_id) REFERENCES Jobs(id),
+	UNIQUE(email, employee_number)
+);
+
+CREATE TABLE Jobs(
+	id int not null auto_increment,
+	title varchar(25) not null,
+	starting_salary decimal(8,2) not null,
+
+	PRIMARY KEY(id),
+	UNIQUE(title)
+);
+
+
