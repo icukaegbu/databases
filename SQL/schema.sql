@@ -34,6 +34,9 @@ CREATE TABLE Messages(
 );
 
 
+CREATE VIEW user_messages AS SELECT Users.username, Messages.message, Rooms.name FROM Users, Messages, Rooms
+WHERE Messages.user_id = Users.user_id AND Messages.room_id = Rooms.id;
+
 /*  Execute this file from the command line by typing:
  *    mysql < schema.sql
  *  to create the database and the tables.*/
