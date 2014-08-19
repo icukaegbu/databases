@@ -48,3 +48,7 @@ exports.getMessages = function(req, res) {
 exports.sendOptionsResponse = function(req, res) {
   serverHelpers.sendResponse(res, null);
 };
+
+exports.sendResponse = function(res, obj, status) {
+  serverHelpers.sendResponse(res, obj, status);
+};
