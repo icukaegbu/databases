@@ -150,3 +150,40 @@ CREATE TABLE Jobs(
 );
 
 
+/*GENEOLOGY TREE DATABASE*/
+CREATE DATABASE Geneology;
+
+USE Geneology;
+
+CREATE TABLE Person(
+	id int not null auto_increment,
+	firstname varchar(30) not null,
+	lastname varchar(30) not null,
+	middlename varchar(20),
+	gender enum('MALE', 'FEMALE') not null,
+	dob date not null,
+
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE Family(
+	id int not null auto_increment,
+	name varchar(40) not null,
+	family_head_id int not null,
+	place_of_origin varchar(60) not null,
+
+	PRIMARY KEY(id),
+	FOREIGN KEY(family_head_id) REFERENCES Person(id)
+);
+
+CREATE TABLE Relationships(
+	id int not null auto_increment,
+	person_id int not null,
+	relationship_type enum('FATHER', 'MOTHER', 'SON', 'DAUGHTER', 'HUSBAND', 'WIFE', 'BROTHER', 'SISTER', 'AUNTY', 'UNCLE'),
+	relationship_with int not null,
+	date_relationship_commenced date,
+
+	PRIMARY KEY(id),
+	FOREIGN KEY(person_id) REFERENCES Person(id),
+	FOREIGN KEY(relationship_with) REFERENCES Person(id)
+);
